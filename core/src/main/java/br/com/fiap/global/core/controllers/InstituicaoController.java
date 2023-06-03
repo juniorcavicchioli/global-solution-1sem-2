@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 @RestController
-@RequestMapping("techbridge/api/instituicao")
+@RequestMapping("api/instituicao")
 @Slf4j
 public class InstituicaoController {
 
@@ -33,7 +33,7 @@ public class InstituicaoController {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Instituicao não encontrada"));
     }
     @PostMapping()
-    public ResponseEntity<EntityModel<Instituicao>> signup(@RequestBody @Valid Instituicao instituicao, BindingResult result){
+    public ResponseEntity<EntityModel<Instituicao>> create(@RequestBody @Valid Instituicao instituicao, BindingResult result){
         repository.save(instituicao);
         return ResponseEntity
                 .created(instituicao.toEntityModel().getRequiredLink("self").toUri())
@@ -65,11 +65,6 @@ public class InstituicaoController {
         var instituicaoEncontrada = getInstituicao(id);
         repository.delete(instituicaoEncontrada);
         return ResponseEntity.noContent().build();
-    }
-
-    @PostMapping("login")
-    public String login(){
-        return "Ainda não implementado";
     }
 
 }

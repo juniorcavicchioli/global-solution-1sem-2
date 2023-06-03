@@ -1,5 +1,6 @@
 package br.com.fiap.global.core.controllers;
 
+import br.com.fiap.global.core.dto.UsuarioDTO;
 import br.com.fiap.global.core.models.Usuario;
 import br.com.fiap.global.core.repository.UsuarioRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -12,6 +13,8 @@ import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.PagedModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -19,12 +22,18 @@ import org.springframework.web.server.ResponseStatusException;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("techbridge/api/usuario")
+@RequestMapping("api/usuario")
 @Slf4j
 public class UsuarioController {
 
     @Autowired
     UsuarioRepository repository;
+
+    @Autowired
+    AuthenticationManager manager;
+
+    @Autowired
+    PasswordEncoder encoder;
 
     @Autowired
     PagedResourcesAssembler<Object> assembler;
@@ -35,6 +44,7 @@ public class UsuarioController {
     }
     @PostMapping()
     public ResponseEntity<EntityModel<Usuario>> signup(@RequestBody @Valid Usuario usuario, BindingResult result){
+        usuario.setSenha(encoder.encode(usuario.getSenha()));
         repository.save(usuario);
         return ResponseEntity
                 .created(usuario.toEntityModel().getRequiredLink("self").toUri())
@@ -69,8 +79,8 @@ public class UsuarioController {
     }
 
     @PostMapping("login")
-    public String login(){
-        return "Ainda não implementado";
+    public void login(@RequestBody UsuarioDTO credencial){
+        manager.authenticate(credencial.toAuthentication());
     }
 
 }
