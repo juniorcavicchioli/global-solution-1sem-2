@@ -1,8 +1,10 @@
 package br.com.fiap.global.core.controllers;
 
-import br.com.fiap.global.core.dto.UsuarioDTO;
+import br.com.fiap.global.core.dto.Token;
+import br.com.fiap.global.core.dto.Credencial;
 import br.com.fiap.global.core.models.Usuario;
 import br.com.fiap.global.core.repository.UsuarioRepository;
+import br.com.fiap.global.core.service.TokenService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -38,11 +40,14 @@ public class UsuarioController {
     @Autowired
     PagedResourcesAssembler<Object> assembler;
 
+    @Autowired
+    TokenService tokenService;
+
     private Usuario getUsuario(Long id) {
         return repository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuario não encontrada"));
     }
-    @PostMapping()
+    @PostMapping("/registrar")
     public ResponseEntity<EntityModel<Usuario>> signup(@RequestBody @Valid Usuario usuario, BindingResult result){
         usuario.setSenha(encoder.encode(usuario.getSenha()));
         repository.save(usuario);
@@ -79,8 +84,10 @@ public class UsuarioController {
     }
 
     @PostMapping("login")
-    public void login(@RequestBody UsuarioDTO credencial){
+    public ResponseEntity<Token> login(@RequestBody Credencial credencial){
         manager.authenticate(credencial.toAuthentication());
+        var token = tokenService.generateToken(credencial);
+        return ResponseEntity.ok(token);
     }
 
 }
