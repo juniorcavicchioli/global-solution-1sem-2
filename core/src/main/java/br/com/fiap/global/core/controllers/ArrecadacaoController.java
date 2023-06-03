@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 @RestController
-@RequestMapping("techbridge/api/arrecadacao")
+@RequestMapping("api/arrecadacao")
 @Slf4j
 public class ArrecadacaoController {
 
@@ -33,7 +33,7 @@ public class ArrecadacaoController {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Arrecadacao não encontrada"));
     }
     @PostMapping()
-    public ResponseEntity<EntityModel<Arrecadacao>> signup(@RequestBody @Valid Arrecadacao arrecadacao, BindingResult result){
+    public ResponseEntity<EntityModel<Arrecadacao>> create(@RequestBody @Valid Arrecadacao arrecadacao, BindingResult result){
         repository.save(arrecadacao);
         return ResponseEntity
                 .created(arrecadacao.toEntityModel().getRequiredLink("self").toUri())
@@ -65,11 +65,6 @@ public class ArrecadacaoController {
         var arrecadacaoEncontrada = getArrecadacao(id);
         repository.delete(arrecadacaoEncontrada);
         return ResponseEntity.noContent().build();
-    }
-
-    @PostMapping("login")
-    public String login(){
-        return "Ainda não implementado";
     }
 
 }

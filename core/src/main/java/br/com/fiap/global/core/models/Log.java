@@ -1,6 +1,5 @@
 package br.com.fiap.global.core.models;
 
-import br.com.fiap.global.core.controllers.LogController;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -33,12 +32,12 @@ public class Log {
     @Column(name = "ds_mensagem", nullable = false)
     private String mensagem;
 
-    public EntityModel<Log> toEntityModel() {
-        return EntityModel.of(
-                this,
-                linkTo(methodOn(LogController.class).show(usuario.getId())).withSelfRel(),
-                linkTo(methodOn(LogController.class).destroy(usuario.getId())).withRel("delete"),
-                linkTo(methodOn(LogController.class).index(Pageable.unpaged())).withRel("all")
-        );
-    }
+//    public EntityModel<Log> toEntityModel() {
+//        return EntityModel.of(
+//                this,
+//                linkTo(methodOn(LogController.class).show(usuario.getId())).withSelfRel(),
+//                linkTo(methodOn(LogController.class).destroy(usuario.getId())).withRel("delete"),
+//                linkTo(methodOn(LogController.class).index(Pageable.unpaged())).withRel("all")
+//        );
+//    }
 }

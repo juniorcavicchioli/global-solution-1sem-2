@@ -1,7 +1,10 @@
 package br.com.fiap.global.core.controllers;
 
+import br.com.fiap.global.core.dto.Token;
+import br.com.fiap.global.core.dto.Credencial;
 import br.com.fiap.global.core.models.Usuario;
 import br.com.fiap.global.core.repository.UsuarioRepository;
+import br.com.fiap.global.core.service.TokenService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -12,6 +15,8 @@ import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.PagedModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -19,7 +24,7 @@ import org.springframework.web.server.ResponseStatusException;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("techbridge/api/usuario")
+@RequestMapping("api/usuario")
 @Slf4j
 public class UsuarioController {
 
@@ -27,14 +32,24 @@ public class UsuarioController {
     UsuarioRepository repository;
 
     @Autowired
+    AuthenticationManager manager;
+
+    @Autowired
+    PasswordEncoder encoder;
+
+    @Autowired
     PagedResourcesAssembler<Object> assembler;
+
+    @Autowired
+    TokenService tokenService;
 
     private Usuario getUsuario(Long id) {
         return repository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuario não encontrada"));
     }
-    @PostMapping()
+    @PostMapping("/registrar")
     public ResponseEntity<EntityModel<Usuario>> signup(@RequestBody @Valid Usuario usuario, BindingResult result){
+        usuario.setSenha(encoder.encode(usuario.getSenha()));
         repository.save(usuario);
         return ResponseEntity
                 .created(usuario.toEntityModel().getRequiredLink("self").toUri())
@@ -69,8 +84,10 @@ public class UsuarioController {
     }
 
     @PostMapping("login")
-    public String login(){
-        return "Ainda não implementado";
+    public ResponseEntity<Token> login(@RequestBody Credencial credencial){
+        manager.authenticate(credencial.toAuthentication());
+        var token = tokenService.generateToken(credencial);
+        return ResponseEntity.ok(token);
     }
 
 }
