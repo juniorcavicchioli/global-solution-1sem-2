@@ -1,5 +1,67 @@
-# IFEED
+# IFEED - documentação da API REST core
+Aqui se encontra a documentação básica da API core do projeto.
 
+Para todas as requisições exceto [log in](#log-in) e [sign up](#sign-up) é necessário informar um token obtido quando logado no header.
+A princípio, o token levado em conta é o de usuário.
+
+Atualmente não há DTO para controle do retorno, então o retorno
+atual de um objeto Usuario está assim:
+```json
+{
+	"id": 1,
+	"nome": "Fulano",
+	"email": "exemplo@exemplo.com",
+	"senha": "$2a$10$Js2UaHfVV67wV83hGQ6raOGWp3rPR12/t6PUSQMCNQe1GbiTp2QeS",
+	"telefone": "123456789",
+	"enabled": true,
+	"password": "$2a$10$Js2UaHfVV67wV83hGQ6raOGWp3rPR12/t6PUSQMCNQe1GbiTp2QeS",
+	"username": "exemplo@exemplo.com",
+	"accountNonLocked": true,
+	"authorities": [
+		{
+			"authority": "ROLE_USUARIO"
+		}
+	],
+	"credentialsNonExpired": true,
+	"accountNonExpired": true,
+	"_links": {
+		"self": {
+			"href": "http://localhost:8080/api/usuario/1"
+		},
+		"delete": {
+			"href": "http://localhost:8080/api/usuario/1"
+		},
+		"all": {
+			"href": "http://localhost:8080/api/usuario"
+		}
+	}
+}
+```
+
+Os retornos de lista possuem, além do objeto, uma paginação.
+```json
+{
+	"_embedded": {
+		"entityModelList": [
+          { /*objeto*/ },
+          { /*objeto*/ },
+          { /*objeto*/ }
+        ]
+	},
+	"_links": {
+		"self": {
+			"href": "http://localhost:8080/api/usuario?page=0&size=5"
+		}
+	},
+	"page": {
+		"size": 5,
+		"totalElements": 1,
+		"totalPages": 1,
+		"number": 0
+	}
+}
+
+```
 ## Endpoints
 - Usuario
   - [sign up](#sign-up)
