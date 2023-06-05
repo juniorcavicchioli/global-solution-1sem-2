@@ -24,7 +24,7 @@ public class Instituicao {
     @Column(name = "id_instituicao", nullable = false)
     private Long id;
 
-    @Column(name = "nm_isntituicao", nullable = false)
+    @Column(name = "nm_instituicao", nullable = false)
     private String nome;
     @Column(name = "ds_descricao", nullable = false)
     private String descricao;

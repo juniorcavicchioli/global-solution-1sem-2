@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.hateoas.EntityModel;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
@@ -30,7 +31,7 @@ public class Arrecadacao {
     @Column(name = "vl_arrecadacao", nullable = false)
     private Float valor;
     @Column(name = "dt_arrecadacao", nullable = false)
-    private LocalDateTime dtArrecadacao;
+    private LocalDate dtArrecadacao;
     @Column(name = "tp_pagamento", nullable = false)
     private String tipoPagamento;
 

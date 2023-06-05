@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.hateoas.EntityModel;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
@@ -26,7 +27,7 @@ public class Log {
     private Usuario usuario;
 
     @Column(name = "dt_ocorrencia", nullable = false)
-    private LocalDateTime dataOcorrencia;
+    private LocalDate dataOcorrencia;
     @Column(name = "cd_erro", nullable = false)
     private Integer erro;
     @Column(name = "ds_mensagem", nullable = false)
