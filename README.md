@@ -4,6 +4,15 @@ Aqui se encontra a documentação básica da API core do projeto.
 Para todas as requisições exceto [log in](#log-in) e [sign up](#sign-up) é necessário informar um token obtido quando logado no header.
 A princípio, o token levado em conta é o de usuário.
 
+## Diagramas
+
+**Diagrama de classes**
+![Diagrama de classes](diagramas/diagrama-de-classes.jpg)
+
+**Modelo físico**
+*Faltando*
+
+## Atenção
 Atualmente não há DTO para controle do retorno, então o retorno
 atual de um objeto Usuario está assim:
 ```json
