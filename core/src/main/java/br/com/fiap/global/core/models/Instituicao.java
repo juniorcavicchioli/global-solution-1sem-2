@@ -1,5 +1,6 @@
 package br.com.fiap.global.core.models;
 
+import br.com.fiap.global.core.controllers.ArrecadacaoController;
 import br.com.fiap.global.core.controllers.InstituicaoController;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -38,7 +39,8 @@ public class Instituicao {
                 this,
                 linkTo(methodOn(InstituicaoController.class).show(id)).withSelfRel(),
                 linkTo(methodOn(InstituicaoController.class).destroy(id)).withRel("delete"),
-                linkTo(methodOn(InstituicaoController.class).index(Pageable.unpaged())).withRel("all")
+                linkTo(methodOn(InstituicaoController.class).index(Pageable.unpaged())).withRel("all"),
+                linkTo(methodOn(ArrecadacaoController.class).index(Pageable.unpaged(), null, id)).withRel("arrecadacoes")
         );
     }
 }

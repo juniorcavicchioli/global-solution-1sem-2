@@ -49,7 +49,7 @@ public class Arrecadacao {
                 this,
                 linkTo(methodOn(ArrecadacaoController.class).show(id)).withSelfRel(),
                 linkTo(methodOn(ArrecadacaoController.class).destroy(id)).withRel("delete"),
-                linkTo(methodOn(ArrecadacaoController.class).index(Pageable.unpaged())).withRel("all")
+                linkTo(methodOn(ArrecadacaoController.class).index(Pageable.unpaged(), null, null)).withRel("all")
         );
     }
 }

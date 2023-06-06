@@ -47,8 +47,15 @@ public class ArrecadacaoController {
     }
 
     @GetMapping()
-    public PagedModel<EntityModel<Object>> index(@PageableDefault(size = 5) Pageable pageable){ //@RequestParam String busca
-        Page<Arrecadacao> arrecadacaos = repository.findAll(pageable);
+    public PagedModel<EntityModel<Object>> index(@PageableDefault(size = 5) Pageable pageable, @RequestParam Long usuario, @RequestParam Long instituicao){
+        Page<Arrecadacao> arrecadacaos;
+        if (usuario != null && instituicao == null) {
+            arrecadacaos = (instituicao == null) ?
+                    repository.findByUsuario(usuario) :
+                    repository.findByInstituicao(instituicao);
+        } else {
+            arrecadacaos = repository.findAll(pageable);
+        }
         return assembler.toModel(arrecadacaos.map(Arrecadacao::toEntityModel));
     }
 

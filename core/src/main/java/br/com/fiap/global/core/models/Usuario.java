@@ -1,5 +1,6 @@
 package br.com.fiap.global.core.models;
 
+import br.com.fiap.global.core.controllers.ArrecadacaoController;
 import br.com.fiap.global.core.controllers.UsuarioController;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -47,7 +48,8 @@ public class Usuario implements UserDetails {
                 this,
                 linkTo(methodOn(UsuarioController.class).show(id)).withSelfRel(),
                 linkTo(methodOn(UsuarioController.class).destroy(id)).withRel("delete"),
-                linkTo(methodOn(UsuarioController.class).index(Pageable.unpaged())).withRel("all")
+                linkTo(methodOn(UsuarioController.class).index(Pageable.unpaged())).withRel("all"),
+                linkTo(methodOn(ArrecadacaoController.class).index(Pageable.unpaged(), id, null)).withRel("arrecadacoes")
         );
     }
 
