@@ -1,0 +1,14 @@
+# Use a imagem base do MySQL
+FROM mariadb:latest
+
+# Defina as variáveis de ambiente
+ENV MARIADB_DATABASE=ifeed
+ENV MARIADB_USER=example-user
+ENV MARIADB_PASSWORD=my_cool_secret 
+ENV MARIADB_ROOT_PASSWORD=my-secret-pw
+
+# Copie um arquivo SQL de inicialização para o contêiner
+# COPY ./SCRIPT_DDL.sql /docker-entrypoint-initdb.d/
+
+# Expõe a porta do MySQL
+EXPOSE 3306

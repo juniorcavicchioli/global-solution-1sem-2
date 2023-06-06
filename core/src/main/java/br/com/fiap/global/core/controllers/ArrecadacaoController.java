@@ -51,8 +51,8 @@ public class ArrecadacaoController {
         Page<Arrecadacao> arrecadacaos;
         if (usuario != null || instituicao != null) {
             arrecadacaos = (instituicao == null) ?
-                    repository.findByUsuario(usuario) :
-                    repository.findByInstituicao(instituicao);
+                    repository.findByUsuario(usuario, pageable) :
+                    repository.findByInstituicao(instituicao, pageable);
         } else {
             arrecadacaos = repository.findAll(pageable);
         }
