@@ -1,4 +1,4 @@
-# IFEED - documentação da API REST core
+# IFEED
 Aqui se encontra a documentação básica da API core do projeto.
 
 Para todas as requisições exceto [log in](#log-in) e [sign up](#sign-up) é necessário informar um token obtido quando logado no header.
