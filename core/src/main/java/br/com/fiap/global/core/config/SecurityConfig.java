@@ -22,10 +22,11 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
-                .authorizeHttpRequests()
-                    .requestMatchers(HttpMethod.POST, "/api/usuario/registrar").permitAll()
-                    .requestMatchers(HttpMethod.POST, "/api/usuario/login").permitAll()
-                    .anyRequest().authenticated()
+//                .authorizeHttpRequests()
+//                    .requestMatchers(HttpMethod.POST, "/api/usuario/registrar").permitAll()
+//                    .requestMatchers(HttpMethod.POST, "/api/usuario/login").permitAll()
+//                    .anyRequest().authenticated()
+                .authorizeHttpRequests().anyRequest().permitAll() // necessário permitir para funcionar já que o sistema de autorização não está pronto no front
                 .and()
                 .csrf().disable()
                 .formLogin().disable()

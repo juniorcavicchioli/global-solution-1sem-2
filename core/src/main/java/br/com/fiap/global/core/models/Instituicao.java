@@ -39,7 +39,7 @@ public class Instituicao {
                 this,
                 linkTo(methodOn(InstituicaoController.class).show(id)).withSelfRel(),
                 linkTo(methodOn(InstituicaoController.class).destroy(id)).withRel("delete"),
-                linkTo(methodOn(InstituicaoController.class).index(Pageable.unpaged())).withRel("all"),
+                linkTo(methodOn(InstituicaoController.class).index(Pageable.unpaged(),null)).withRel("all"),
                 linkTo(methodOn(ArrecadacaoController.class).index(Pageable.unpaged(), null, id)).withRel("arrecadacoes")
         );
     }
