@@ -47,7 +47,7 @@ public class ArrecadacaoController {
     }
 
     @GetMapping()
-    public PagedModel<EntityModel<Object>> index(@PageableDefault(size = 5) Pageable pageable, @RequestParam Long usuario, @RequestParam Long instituicao){
+    public PagedModel<EntityModel<Object>> index(@PageableDefault(size = 5) Pageable pageable, @RequestParam(required = false) Long usuario, @RequestParam(required = false) Long instituicao){
         Page<Arrecadacao> arrecadacaos;
         if (usuario != null || instituicao != null) {
             arrecadacaos = (instituicao == null) ?

@@ -47,7 +47,7 @@ public class InstituicaoController {
     }
 
     @GetMapping()
-    public PagedModel<EntityModel<Object>> index(@PageableDefault(size = 5) Pageable pageable, @RequestParam String nome){ //@RequestParam String busca
+    public PagedModel<EntityModel<Object>> index(@PageableDefault(size = 5) Pageable pageable, @RequestParam(required = false) String nome){ //@RequestParam String busca
         Page<Instituicao> instituicaos;
         instituicaos = (nome == null) ?
                 repository.findAll(pageable):
