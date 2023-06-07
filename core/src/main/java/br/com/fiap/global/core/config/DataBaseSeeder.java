@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.cglib.core.Local;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
 import java.time.LocalDate;
 
 import java.util.ArrayList;
@@ -24,18 +26,28 @@ public class DataBaseSeeder implements CommandLineRunner {
     UsuarioRepository usuarioRepository;
     @Autowired
     ArrecadacaoRepository arrecadacaoRepository;
+    @Autowired
+    PasswordEncoder encoder;
 
     @Override
     public void run(String... args) throws Exception {
 
+        List<String> senhas = new ArrayList<>();
+        senhas.addAll(List.of(
+                encoder.encode("12345678"),
+                encoder.encode("87654321"),
+                encoder.encode("webcam123")
+        ));
+
         List<Instituicao> i = generateInstituicoes();
         instituicaoRepository.saveAll(i);
 
-        List<Usuario> u = generateUsuarios();
+        List<Usuario> u = generateUsuarios(senhas);
         usuarioRepository.saveAll(u);
 
         List<Arrecadacao> a = generateArrecadacoes(u, i);
         arrecadacaoRepository.saveAll(a);
+
     }
 
     private static List<Arrecadacao> generateArrecadacoes(List<Usuario> u, List<Instituicao> i){
@@ -67,26 +79,26 @@ public class DataBaseSeeder implements CommandLineRunner {
         return arrecadacoes;
     }
 
-    private static List<Usuario> generateUsuarios(){
+    private static List<Usuario> generateUsuarios(List<String> senhas){
         List<Usuario> usuarios = new ArrayList<>();
 
         usuarios.addAll(List.of(
                 Usuario.builder()
                         .nome("Adilson")
                         .email("exemplo@exemplo.com")
-                        .senha("12345678")
+                        .senha(senhas.get(0))
                         .telefone("12344321")
                         .build(),
                 Usuario.builder()
                         .nome("Fernando")
                         .email("softmax@softmax.com")
-                        .senha("87654321")
+                        .senha(senhas.get(1))
                         .telefone("87655678")
                         .build(),
                 Usuario.builder()
                         .nome("Cléber")
                         .email("webcam@webcam.com")
-                        .senha("webcam123")
+                        .senha(senhas.get(2))
                         .telefone("11112222")
                         .build()
         ));
