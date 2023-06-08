@@ -18,12 +18,13 @@ Para agilizar a navegação pelos arquivos, decidi mapear onde se encontram os p
   - [findByUsuario e findByInstituicao](core/src/main/java/br/com/fiap/global/core/repository/ArrecadacaoRepository.java) para arrecadações;
   - [findByEmail](core/src/main/java/br/com/fiap/global/core/repository/UsuarioRepository.java) para usuários;
   - [findByName](core/src/main/java/br/com/fiap/global/core/repository/InstituicaoRepository.java) para instituições;
-
-FALTANDO COISA
+- [Link](https://www.youtube.com/watch?v=Gng1gJKfpm0) para o tutorial de instalação e testes.
+- [README](core) com a documentação da API.
 
 ## Digital Business Enablement
 
 A API está na pasta [`core`](core).
+- [Link](https://www.youtube.com/watch?v=Gng1gJKfpm0) para o tutorial de instalação e testes.
 
 ## DevOps Tools e Cloud Computing
 
