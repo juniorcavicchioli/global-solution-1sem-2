@@ -26,3 +26,7 @@ FALTANDO COISA
 A API está na pasta [`core`](core).
 
 ## DevOps Tools e Cloud Computing
+
+- [docker-compose.yml](docker-compose.yml)
+- [dockerfile](core/Dockerfile) da API
+
